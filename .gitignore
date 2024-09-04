@@ -1,0 +1,84 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+*.egg-info/
+.eggs/
+dist/
+build/
+*.egg
+
+# Flask and Python logs
+*.log
+*.pot
+*.mo
+*.sqlite3
+instance/
+
+# VSCode settings
+.vscode/
+
+# Cache files
+.cache/
+*.pkl
+
+# Jupyter notebooks
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+.env
+
+# Tensorflow / PyTorch / Machine Learning Checkpoints
+checkpoints/
+logs/
+*.ckpt
+model/
+
+# Config / secrets / environment
+config.py
+.env
+*.secret
+
+# Matplotlib plots
+__pycache__/
+*.png
+
+# HDF5 / h5py
+*.h5
+*.hdf5
+
+# Ignore weights and training artifacts
+*.h5
+*.pb
+*.onnx
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore pre-trained models and datasets
+models/
+data/
+
+# Ignore tensorboard files
+*.tfevents*
+
+# MacOS-specific files
+.DS_Store
+
+# Ignore train, test, and validation folders
+train/
+test/
+validation/

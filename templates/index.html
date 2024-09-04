@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traffic Sign Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+
+<body>
+    <!-- Loading screen -->
+    <div id="loading-screen">
+        <div class="loading-spinner"></div>
+        <p>Model is being retrained, please wait...</p>
+    </div>
+
+    <div id="content">
+        <!-- Navigation Button to Metrics Page -->
+        <div class="nav-buttons">
+            <a href="{{ url_for('show_metrics') }}">View Training Metrics</a>
+        </div>
+
+        <h1>Upload an Image of a Traffic Sign</h1>
+        <form action="/" method="POST" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <label for="model_select">Select Model:</label>
+            <select name="model_select" id="model_select">
+                {% for model_file in model_files %}
+                <option value="{{ model_file }}">{{ model_file }}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" value="Upload">
+        </form>
+        {% if prediction %}
+        <h2>Prediction: {{ prediction }}</h2>
+        <img src="{{ url_for('static', filename='uploads/' + filepath.split('/')[-1]) }}" alt="Uploaded Image">
+        {% endif %}
+
+        <h1>Upload New Training Images</h1>
+        <form action="/upload_train" method="POST" enctype="multipart/form-data">
+            <label for="class_id">Class ID:</label>
+            <input type="number" name="class_id" min="0" max="42" required>
+            <input type="file" name="train_file" multiple required>
+            <input type="submit" value="Upload Training Images">
+        </form>
+        {% if train_upload_status %}
+        <h2>{{ train_upload_status }}</h2>
+        {% endif %}
+
+        <h1>Clear Uploaded Data</h1>
+        <form action="/clear_data" method="POST">
+            <p>Click the button below to delete all uploaded images and clear the training data:</p>
+            <input type="submit" value="Clear Data">
+        </form>
+        {% if clear_data_status %}
+        <h2>{{ clear_data_status }}</h2>
+        {% endif %}
+
+        <h1>Retrain the Model</h1>
+        <form id="retrain-form" action="/retrain_model" method="POST" onsubmit="showLoadingScreen()">
+            <label for="model_name">Select Model to Fine-Tune:</label>
+            <select name="model_name" id="model_name" required>
+                {% for model_file in model_files %}
+                <option value="{{ model_file }}">{{ model_file }}</option>
+                {% endfor %}
+            </select>
+            <label for="new_model_name">Enter New Model Name:</label>
+            <input type="text" name="new_model_name" id="new_model_name" placeholder="Enter new model name" required>
+            <input type="submit" value="Retrain Model">
+        </form>
+        {% if retrain_status %}
+        <h2>{{ retrain_status }}</h2>
+        {% endif %}
+    </div>
+
+    <script>
+        function showLoadingScreen() {
+            document.getElementById('content').style.display = 'none';
+            document.getElementById('loading-screen').style.display = 'flex';
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Metrics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/metric-styles.css') }}">
+</head>
+<body>
+    <h1>Model Metrics</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Model Name</th>
+                <th>Training Accuracy</th>
+                <th>Validation Accuracy</th>
+                <th>Training Loss</th>
+                <th>Validation Loss</th>
+                <th>Date Trained</th>
+                <th>Accuracy Plot</th>
+                <th>Loss Plot</th>
+                <th>Confusion Matrix</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for metric in metrics %}
+            <tr>
+                <td>{{ metric.model_name }}</td>
+                <td>{{ metric.accuracy }}</td>
+                <td>{{ metric.val_accuracy }}</td>
+                <td>{{ metric.loss }}</td>
+                <td>{{ metric.val_loss }}</td>
+                <td>{{ metric.date_trained }}</td>
+                <td><img src="{{ url_for('static', filename=metric.accuracy_plot_path.split('static/')[-1]) }}" alt="Accuracy Plot" width="200"></td>
+                <td><img src="{{ url_for('static', filename=metric.loss_plot_path.split('static/')[-1]) }}" alt="Loss Plot" width="200"></td>
+                <td><img src="{{ url_for('static', filename=metric.confusion_matrix_plot_path.split('static/')[-1]) }}" alt="Confusion Matrix" width="200"></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ url_for('index') }}" class="button">Back to Home</a>
+</body>
+</html>
